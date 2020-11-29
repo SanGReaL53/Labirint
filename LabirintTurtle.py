@@ -23,7 +23,7 @@ class LabirintTurtle():
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
                 if self.map[i][j] != 'A' and self.map[i][j] != '*':
-                    if self.map != ' ':
+                    if self.map[i][j] != ' ':
                         return False
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
