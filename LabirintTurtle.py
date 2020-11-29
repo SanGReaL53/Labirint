@@ -12,7 +12,7 @@ class LabirintTurtle():
                 self.map.append(list(line[:-1]))
             else:
                 self.turtle.append(int(line))
-        check_map(self)
+        self.check_map()
 
     def show_map(self, turtle=None):
         if turtle != None:
@@ -32,12 +32,14 @@ class LabirintTurtle():
                     a = []
                     a.append(i)
                     a.append(j)
-                    self.exitc.append(a)
+                    if a not in self.exitc:     
+                        self.exitc.append(a)
                 elif (j == 0 or j == len(self.map[i]) - 1) and self.map[i][j] == ' ':
                     a = []
                     a.append(i)
                     a.append(j)
-                    self.exitc.append(a)
+                    if a not in self.exitc:
+                        self.exitc.append(a)
             if len(self.exitc) == 0:
                 return False
         if self.turtle == []:
