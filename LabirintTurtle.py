@@ -12,6 +12,7 @@ class LabirintTurtle():
                 self.map.append(list(line[:-1]))
             else:
                 self.turtle.append(int(line))
+        check_map(self)
 
     def show_map(self, turtle=None):
         if turtle != None:
@@ -39,10 +40,7 @@ class LabirintTurtle():
                     self.exitc.append(a)
             if len(self.exitc) == 0:
                 return False
-    
-            
-t = LabirintTurtle()
-t.load_map('l1.txt')
-t.show_map()
-t.check_map()
-print(t.exitc)
+        if self.turtle == []:
+            return False
+        if self.map[self.turtle[0]][self.turtle[1]] == '*':
+            return False
