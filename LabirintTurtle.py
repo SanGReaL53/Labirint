@@ -72,7 +72,7 @@ class LabirintTurtle():
  
                 for y in range(0, len(self.labirint111) - 1):
                     for x in range(0, len(self.labirint111[y]) - 1):
-                        if labirint111[y][x] != '':
+                        if self.labirint111[y][x] != '':
  
                         
                             if self.labirint111[y - 1][x] != '' and self.labirint111[y - 1][x] == 0 and self.labirint111[y][x] != 0:
