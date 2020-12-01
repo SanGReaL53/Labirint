@@ -56,13 +56,7 @@ class LabirintTurtle():
         if self.map[self.turtle[0]][self.turtle[1]] == '*':
             return False
     def find_way(self):
-        self.lab = self.map
-
- 
- 
-
-
- 
+        self.lab = self.map 
         x = self.turtle[0]
         y = self.turtle[1]
         self.lab[x][y] = 1 
@@ -70,32 +64,19 @@ class LabirintTurtle():
             for j in range(0, len(self.lab[i])):
                  if self.lab[i][j] == ' ':
                      self.lab[i][j] = 0
-        
- 
- 
         for i in range(0, len(self.lab) - 1):
             for j in range(0, len(self.lab[i]) - 1):
- 
                 for x in range(0, len(self.lab) - 1):
                     for y in range(0, len(self.lab[x]) - 1):
                         if self.lab[x][y] != '*':
- 
-                        
                             if self.lab[x - 1][y] != '*' and self.lab[x - 1][y] == 0 and self.lab[x][y] != 0:
                                 self.lab[x - 1][y] = int(self.lab[x][y]) + 1
-                        
                             if self.lab[x][y + 1] != '*' and self.lab[x][y + 1] == 0 and self.lab[x][y] != 0:
                                 self.lab[x][y + 1] = int(self.lab[x][y]) + 1
-                        
                             if self.lab[x + 1][y] != '*' and self.lab[x + 1][y] == 0 and self.lab[x][y] != 0:
                                 self.lab[x + 1][y] = int(self.lab[x][y]) + 1
-                        
                             if self.lab[x][y - 1] != '*' and self.lab[x][y - 1] == 0 and self.lab[x][y] != 0:
                                 self.lab[x][y - 1] = int(self.lab[x][y]) + 1
- 
- 
- 
-
         for i in range(0, len(self.lab)):
             for j in range(0, len(self.lab[i])):
                 if self.lab[i][j] == '':
