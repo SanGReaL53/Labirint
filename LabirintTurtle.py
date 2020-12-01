@@ -7,13 +7,17 @@ class LabirintTurtle():
         self.labirint111 = []
 
     def load_map(self, file):
-        f = open(file, 'r')
-        for line in f:
-            if line.startswith(' ') or line.startswith('*'):
-                self.map.append(list(line[:-1]))
-            else:
-                self.turtle.append(int(line))
-        self.check_map()
+        try:
+            f = open(file, 'r')
+            for line in f:
+                if line.startswith(' ') or line.startswith('*'):
+                    self.map.append(list(line[:-1]))
+                else:
+                    self.turtle.append(int(line))
+            self.check_map()
+        except ValueError:
+            print('Error')
+            self.load_map(input())
 
     def show_map(self, turtle=None):
         if turtle != None:
@@ -60,9 +64,7 @@ class LabirintTurtle():
         self.labirint111[y][x]=1 
         for y in range(0, len(self.labirint111)):
             for x in range(0, len(self.labirint111[y])):
-                 if self.labirint111[y][x]=='*':
-                     self.labirint111[y][x]=''
-                 elif self.labirint111[y][x]=='':
+                 if self.labirint111[y][x]==' ':
                      self.labirint111[y][x]= 0
         
  
@@ -72,31 +74,29 @@ class LabirintTurtle():
  
                 for y in range(0, len(self.labirint111) - 1):
                     for x in range(0, len(self.labirint111[y]) - 1):
-                        if self.labirint111[y][x] != '':
+                        if self.labirint111[y][x] != '*':
  
                         
-                            if self.labirint111[y - 1][x] != '' and self.labirint111[y - 1][x] == 0 and self.labirint111[y][x] != 0:
+                            if self.labirint111[y - 1][x] != '*' and self.labirint111[y - 1][x] == 0 and self.labirint111[y][x] != 0:
                                 self.labirint111[y - 1][x] = int(self.labirint111[y][x]) + 1
                         
-                            if self.labirint111[y][x + 1] != '' and self.labirint111[y][x + 1] == 0 and self.labirint111[y][x] != 0:
+                            if self.labirint111[y][x + 1] != '*' and self.labirint111[y][x + 1] == 0 and self.labirint111[y][x] != 0:
                                 self.labirint111[y][x + 1] = int(self.labirint111[y][x]) + 1
                         
-                            if self.labirint111[y + 1][x] != '' and self.labirint111[y + 1][x] == 0 and self.labirint111[y][x] != 0:
+                            if self.labirint111[y + 1][x] != '*' and self.labirint111[y + 1][x] == 0 and self.labirint111[y][x] != 0:
                                 self.labirint111[y + 1][x] = int(self.labirint111[y][x]) + 1
                         
-                            if self.labirint111[y][x - 1] != '' and self.labirint111[y][x - 1] == 0 and self.labirint111[y][x] != 0:
+                            if self.labirint111[y][x - 1] != '*' and self.labirint111[y][x - 1] == 0 and self.labirint111[y][x] != 0:
                                 self.labirint111[y][x - 1] = int(self.labirint111[y][x]) + 1
  
  
  
 
-    for y in range(0, len(self.labirint111)):
-       for x in range(0, len(self.labirint111[y])):
-            if self.labirint111[y][x]=='':
-                self.labirint111[y][x]=1
+        for y in range(0, len(self.labirint111)):
+            for x in range(0, len(self.labirint111[y])):
+                if self.labirint111[y][x]=='':
+                    self.labirint111[y][x]=1
 
-    for y in range(0, len(self.labirint111)):
-        print(self.labirint111[y])
     
             
 t = LabirintTurtle()
@@ -104,3 +104,4 @@ t.load_map('l1.txt')
 t.show_map(True)
 t.check_map()
 print(t.exitc)
+t.find_way()
