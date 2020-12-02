@@ -59,6 +59,7 @@ class LabirintTurtle():
             return False
         if self.map[self.turtle[0]][self.turtle[1]] == '*':
             return False
+
     def find_way(self):
         x = self.turtle[0]
         y = self.turtle[1]
@@ -67,7 +68,6 @@ class LabirintTurtle():
             for j in range(0, len(self.lab[i])):
                  if self.lab[i][j] == ' ':
                      self.lab[i][j] = 0
-        
         for i in range(0, len(self.lab) - 1):
             for j in range(0, len(self.lab[i]) - 1):
                 for x in range(0, len(self.lab) - 1):
@@ -91,10 +91,7 @@ class LabirintTurtle():
         x = self.exitc[0][0]
         y = self.exitc[0][1]
         print(self.lab[x][y] - 1)
-        for i in range(len(self.map)):
-            print(*self.map[i])
-        print()
-    
+
     def exit_show_step(self):
         self.find_way()
         min_n = 0
@@ -112,8 +109,6 @@ class LabirintTurtle():
                 max_n = i
         min_c = self.exitc[min_n]
         max_c = self.exitc[max_n]
-        print(minimal, maximal)
-        print(self.exitc)
         self.map[min_c[0]][min_c[1]] = chr(129462)
         self.map[max_c[0]][max_c[1]] = chr(129462)
         if min_c[0] == 0:
