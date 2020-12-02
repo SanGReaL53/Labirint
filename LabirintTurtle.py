@@ -5,6 +5,8 @@ class LabirintTurtle():
         self.exit = 0
         self.exitc = []
         self.lab = []
+        self.exitn = []
+        self.clear = True
 
     def load_map(self, file):
         try:
@@ -13,6 +15,7 @@ class LabirintTurtle():
             for line in f:
                 if line.startswith(' ') or line.startswith('*'):
                     self.map.append(list(line[:-1]))
+                    self.lab.append(list(line[:-1]))
                 else:
                     break
             pos_x = int(line)
@@ -25,14 +28,14 @@ class LabirintTurtle():
 
     def show_map(self, turtle=None):
         if turtle != None:
-            self.map[self.turtle[0]][self.turtle[1]] = 'A'
+            self.map[self.turtle[0]][self.turtle[1]] = chr(128034)
         for i in range(len(self.map)):
             print(*self.map[i])
 
     def check_map(self):
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
-                if self.map[i][j] != 'A' and self.map[i][j] != '*':
+                if self.map[i][j] != chr(128034) and self.map[i][j] != '*':
                     if self.map[i][j] != ' ':
                         return False
         for i in range(len(self.map)):
@@ -56,7 +59,6 @@ class LabirintTurtle():
         if self.map[self.turtle[0]][self.turtle[1]] == '*':
             return False
     def find_way(self):
-        self.lab = self.map 
         x = self.turtle[0]
         y = self.turtle[1]
         self.lab[x][y] = 1 
@@ -64,6 +66,7 @@ class LabirintTurtle():
             for j in range(0, len(self.lab[i])):
                  if self.lab[i][j] == ' ':
                      self.lab[i][j] = 0
+        
         for i in range(0, len(self.lab) - 1):
             for j in range(0, len(self.lab[i]) - 1):
                 for x in range(0, len(self.lab) - 1):
@@ -81,3 +84,97 @@ class LabirintTurtle():
             for j in range(0, len(self.lab[i])):
                 if self.lab[i][j] == '':
                     self.lab[i][j] = 1
+
+        for i in range(len(self.lab)):
+            print(*self.lab[i], end='\t')
+            print()
+
+        
+    def exit_count_step(self):
+        self.find_way()
+        self.clear = False
+        x = self.exitc[0][0]
+        y = self.exitc[0][1]
+        print(self.lab[x][y] - 1)
+        for i in range(len(self.map)):
+            print(*self.map[i])
+        print()
+    def exit_show_step(self):
+        self.find_way()
+        min_n = 0
+        max_n = 0
+        for i in self.exitc:
+            x = i[0]
+            y = i[1]
+            self.exitn.append(self.lab[x][y])
+        minimal = min(self.exitn)
+        maximal = max(self.exitn)
+        for i in range(len(self.exitn)):
+            if self.exitn[i] == minimal:
+                min_n = i
+            elif self.exitn[i] == maximal:
+                max_n = i
+        min_c = self.exitc[min_n]
+        max_c = self.exitc[max_n]
+        print(minimal, maximal)
+        print(self.exitc)
+        self.map[min_c[0]][min_c[1]] = chr(129462)
+        self.map[max_c[0]][max_c[1]] = chr(129462)
+        if min_c[0] == 0:
+            min_c[0] += 1
+            minimal -= 1
+        elif min_c[0] == len(self.map) - 1:
+            min_c[0] -= 1
+            minimal -= 1
+        elif min_c[1] == 0:
+            min_c[1] += 1
+            minimal -= 1
+        elif min_c[1] == len(self.map[0]) - 1:
+            min_c[1] -= 1
+            minimal -= 1
+        if max_c[0] == 0:
+            max_c[0] += 1
+            maximal -= 1
+        elif max_c[0] == len(self.map) - 1:
+            max_c[0] -= 1
+            maximal -= 1
+        elif max_c[1] == 0:
+            max_c[1] += 1
+            maximal -= 1
+        elif max_c[1] == len(self.map[0]) - 1:
+            max_c[1] -= 1
+            maximal -= 1
+        while min_c != self.turtle:
+            if min_c != self.turtle:
+                self.map[min_c[0]][min_c[1]] = chr(129462)
+                if self.lab[min_c[0] - 1][min_c[1]] == minimal - 1:
+                    minimal -= 1
+                    min_c[0] -= 1
+                elif self.lab[min_c[0]][min_c[1] + 1] == minimal - 1:
+                        minimal -= 1
+                        min_c[1] += 1
+                elif self.lab[min_c[0] + 1][min_c[1]] == minimal - 1:
+                    minimal -= 1
+                    min_c[0] += 1
+                elif self.lab[min_c[0]][min_c[1] - 1] == minimal - 1:
+                    minimal -= 1
+                    min_c[1] -= 1
+        while max_c != self.turtle:
+            if max_c != self.turtle:
+                self.map[max_c[0]][max_c[1]] = chr(129462)
+                if self.lab[max_c[0] - 1][max_c[1]] == maximal - 1:
+                    maximal -= 1
+                    max_c[0] -= 1
+                elif self.lab[max_c[0]][max_c[1] + 1] == maximal - 1:
+                    maximal -= 1
+                    max_c[1] += 1
+                elif self.lab[max_c[0] + 1][max_c[1]] == maximal - 1:
+                    maximal -= 1
+                    max_c[0] += 1
+                elif self.lab[max_c[0]][max_c[1] - 1] == maximal - 1:
+                    maximal -= 1
+                    max_c[1] -= 1
+        for i in range(len(self.map)):
+            for j in range(len(self.map[i])):
+                print(self.map[i][j], end='\t')
+            print()
