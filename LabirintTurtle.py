@@ -19,10 +19,10 @@ class LabirintTurtle():
                                 [" "])
 	        line = f.readline()
 
-	     pos_x = int(line)
-	     pos_y = int(f.readline())
-	     self.turtle = [pos_x, pos_y]
-	     self.check_map()
+	    pos_x = int(line)
+	    pos_y = int(f.readline())
+	    self.turtle = [pos_x, pos_y]
+	    self.check_map()
         except ValueError:
 	    print('Error')
 	    self.load_map(input())
