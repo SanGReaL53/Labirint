@@ -6,25 +6,26 @@ class LabirintTurtle():
         self.exitc = []
         self.lab = []
         self.exitn = []
-        self.clear = True
 
     def load_map(self, file):
         try:
-            line = 0
-            f = open(file, 'r')
-            for line in f:
-                if line.startswith(' ') or line.startswith('*'):
-                    self.map.append(list(line[:-1]))
-                    self.lab.append(list(line[:-1]))
-                else:
-                    break
-            pos_x = int(line)
-            pos_y = int(f.readline())
-            self.turtle = [pos_x, pos_y]
-            self.check_map()
+	        f = open(file, 'r')
+	        line = f.readline()
+	        length = len(line) - 1
+            while line.find('*') != -1 or line.find(' ') != - 1:
+                self.map.append(list(line[:-1]) + (length - len(line[:-1])) * 
+                                [" "])
+	            self.lab.append(list(line[:-1]) + (length - len(line[:-1])) * 
+                                [" "])
+	            line = f.readline()
+
+	        pos_x = int(line)
+	        pos_y = int(f.readline())
+	        self.turtle = [pos_x, pos_y]
+	        self.check_map()
         except ValueError:
-            print('Error')
-            self.load_map(input())
+	        print('Error')
+	        self.load_map(input())
 
     def show_map(self, turtle=None):
         if turtle != None:
@@ -99,6 +100,7 @@ class LabirintTurtle():
         for i in range(len(self.map)):
             print(*self.map[i])
         print()
+    
     def exit_show_step(self):
         self.find_way()
         min_n = 0
