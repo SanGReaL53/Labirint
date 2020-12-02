@@ -9,23 +9,23 @@ class LabirintTurtle():
 
     def load_map(self, file):
         try:
-	        f = open(file, 'r')
-	        line = f.readline()
-	        length = len(line) - 1
+	    f = open(file, 'r')
+	    line = f.readline()
+	    length = len(line) - 1
             while line.find('*') != -1 or line.find(' ') != - 1:
                 self.map.append(list(line[:-1]) + (length - len(line[:-1])) * 
                                 [" "])
-	            self.lab.append(list(line[:-1]) + (length - len(line[:-1])) * 
+	        self.lab.append(list(line[:-1]) + (length - len(line[:-1])) * 
                                 [" "])
-	            line = f.readline()
+	        line = f.readline()
 
-	        pos_x = int(line)
-	        pos_y = int(f.readline())
-	        self.turtle = [pos_x, pos_y]
-	        self.check_map()
+	     pos_x = int(line)
+	     pos_y = int(f.readline())
+	     self.turtle = [pos_x, pos_y]
+	     self.check_map()
         except ValueError:
-	        print('Error')
-	        self.load_map(input())
+	    print('Error')
+	    self.load_map(input())
 
     def show_map(self, turtle=None):
         if turtle != None:
