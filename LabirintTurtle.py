@@ -85,15 +85,9 @@ class LabirintTurtle():
             for j in range(0, len(self.lab[i])):
                 if self.lab[i][j] == '':
                     self.lab[i][j] = 1
-
-        for i in range(len(self.lab)):
-            print(*self.lab[i], end='\t')
-            print()
-
         
     def exit_count_step(self):
         self.find_way()
-        self.clear = False
         x = self.exitc[0][0]
         y = self.exitc[0][1]
         print(self.lab[x][y] - 1)
