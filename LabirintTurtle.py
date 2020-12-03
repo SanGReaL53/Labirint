@@ -17,9 +17,9 @@ class LabirintTurtle():
                                 [" "])
                 self.lab.append(list(line[:-1]) + (length - len(line[:-1])) *
                                 [" "])
-                line = f.readLine()
+                line = f.readline()
             pos_x = int(line)
-            pos_y = int(f.readLine())
+            pos_y = int(f.readline())
             self.turtle = [pos_x, pos_y]
             self.check_map()
         except ValueError:
@@ -30,7 +30,9 @@ class LabirintTurtle():
         if turtle != None:
             self.map[self.turtle[0]][self.turtle[1]] = chr(128034)
         for i in range(len(self.map)):
-            print(*self.map[i])
+            for j in range(len(self.map[i])):
+                print(self.map[i][j], end='\t')
+            print()
 
     def check_map(self):
         for i in range(len(self.map)):
@@ -84,11 +86,6 @@ class LabirintTurtle():
             for j in range(0, len(self.lab[i])):
                 if self.lab[i][j] == '':
                     self.lab[i][j] = 1
-
-        for i in range(len(self.lab)):
-            print(*self.lab[i], end='\t')
-            print()
-
         
     def exit_count_step(self):
         self.find_way()
@@ -96,9 +93,6 @@ class LabirintTurtle():
         x = self.exitc[0][0]
         y = self.exitc[0][1]
         print(self.lab[x][y] - 1)
-        for i in range(len(self.map)):
-            print(*self.map[i])
-        print()
     
     def exit_show_step(self):
         self.find_way()
@@ -117,8 +111,6 @@ class LabirintTurtle():
                 max_n = i
         min_c = self.exitc[min_n]
         max_c = self.exitc[max_n]
-        print(minimal, maximal)
-        print(self.exitc)
         self.map[min_c[0]][min_c[1]] = chr(129462)
         self.map[max_c[0]][max_c[1]] = chr(129462)
         if min_c[0] == 0:
