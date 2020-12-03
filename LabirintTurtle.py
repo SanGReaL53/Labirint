@@ -22,7 +22,10 @@ class LabirintTurtle():
 	    pos_x = int(line)
 	    pos_y = int(f.readline())
 	    self.turtle = [pos_x, pos_y]
-	    self.check_map()
+	    a = self.check_map()
+	    if a is False:
+		print('Error')
+		self.load_map(input())
         except ValueError:
 	    print('Error')
 	    self.load_map(input())
@@ -64,14 +67,14 @@ class LabirintTurtle():
         x = self.turtle[0]
         y = self.turtle[1]
         self.lab[x][y] = 1 
-        for i in range(0, len(self.lab)):
-            for j in range(0, len(self.lab[i])):
+        for i in range(len(self.lab)):
+            for j in range(len(self.lab[i])):
                  if self.lab[i][j] == ' ':
                      self.lab[i][j] = 0
-        for i in range(0, len(self.lab) - 1):
-            for j in range(0, len(self.lab[i]) - 1):
-                for x in range(0, len(self.lab) - 1):
-                    for y in range(0, len(self.lab[x]) - 1):
+        for i in range(len(self.lab) - 1):
+            for j in range(len(self.lab[i]) - 1):
+                for x in range(len(self.lab) - 1):
+                    for y in range(len(self.lab[x]) - 1):
                         if self.lab[x][y] != '*':
                             if self.lab[x - 1][y] != '*' and self.lab[x - 1][y] == 0 and self.lab[x][y] != 0:
                                 self.lab[x - 1][y] = int(self.lab[x][y]) + 1
@@ -81,8 +84,8 @@ class LabirintTurtle():
                                 self.lab[x + 1][y] = int(self.lab[x][y]) + 1
                             if self.lab[x][y - 1] != '*' and self.lab[x][y - 1] == 0 and self.lab[x][y] != 0:
                                 self.lab[x][y - 1] = int(self.lab[x][y]) + 1
-        for i in range(0, len(self.lab)):
-            for j in range(0, len(self.lab[i])):
+        for i in range(len(self.lab)):
+            for j in range(len(self.lab[i])):
                 if self.lab[i][j] == '':
                     self.lab[i][j] = 1
         
@@ -165,7 +168,9 @@ class LabirintTurtle():
                 elif self.lab[max_c[0]][max_c[1] - 1] == maximal - 1:
                     maximal -= 1
                     max_c[1] -= 1
+	self.map[self.turtle[0]][self.turtle[1]] = chr(129462)
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
                 print(self.map[i][j], end='\t')
             print()
+
