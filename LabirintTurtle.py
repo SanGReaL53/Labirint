@@ -6,6 +6,10 @@ class LabirintTurtle():
         self.exitc = []
         self.lab = []
         self.exitn = []
+        self.mint = []
+        self.maxt = []
+        self.miner = ''
+        self.maxer = ''
 
     def load_map(self, file):
         try:
@@ -116,59 +120,83 @@ class LabirintTurtle():
         if min_c[0] == 0:
             min_c[0] += 1
             minimal -= 1
+            self.miner = 'down'
         elif min_c[0] == len(self.map) - 1:
             min_c[0] -= 1
             minimal -= 1
+            self.miner = 'right'
         elif min_c[1] == 0:
             min_c[1] += 1
             minimal -= 1
+            self.miner = 'up'
         elif min_c[1] == len(self.map[0]) - 1:
             min_c[1] -= 1
             minimal -= 1
+            self.miner = 'left'
         if max_c[0] == 0:
             max_c[0] += 1
             maximal -= 1
+            self.maxer = 'down'
         elif max_c[0] == len(self.map) - 1:
             max_c[0] -= 1
             maximal -= 1
+            self.maxer = 'right'
         elif max_c[1] == 0:
             max_c[1] += 1
             maximal -= 1
+            self.maxer = 'up'
         elif max_c[1] == len(self.map[0]) - 1:
             max_c[1] -= 1
             maximal -= 1
+            self.maxer = 'left'
         while min_c != self.turtle:
             if min_c != self.turtle:
                 self.map[min_c[0]][min_c[1]] = chr(129462)
                 if self.lab[min_c[0] - 1][min_c[1]] == minimal - 1:
                     minimal -= 1
                     min_c[0] -= 1
+                    self.mint.append('down')
                 elif self.lab[min_c[0]][min_c[1] + 1] == minimal - 1:
-                        minimal -= 1
-                        min_c[1] += 1
+                    minimal -= 1
+                    min_c[1] += 1
+                    self.mint.append('right')
                 elif self.lab[min_c[0] + 1][min_c[1]] == minimal - 1:
                     minimal -= 1
                     min_c[0] += 1
+                    self.mint.append('up')
                 elif self.lab[min_c[0]][min_c[1] - 1] == minimal - 1:
                     minimal -= 1
                     min_c[1] -= 1
+                    self.mint.append('left')
         while max_c != self.turtle:
             if max_c != self.turtle:
                 self.map[max_c[0]][max_c[1]] = chr(129462)
                 if self.lab[max_c[0] - 1][max_c[1]] == maximal - 1:
                     maximal -= 1
                     max_c[0] -= 1
+                    self.maxt.append('down')
                 elif self.lab[max_c[0]][max_c[1] + 1] == maximal - 1:
                     maximal -= 1
                     max_c[1] += 1
+                    self.maxt.append('right')
                 elif self.lab[max_c[0] + 1][max_c[1]] == maximal - 1:
                     maximal -= 1
                     max_c[0] += 1
+                    self.maxt.append('up')
                 elif self.lab[max_c[0]][max_c[1] - 1] == maximal - 1:
                     maximal -= 1
                     max_c[1] -= 1
+                    self.maxt.append('left')
         self.lab[self.turtle[0]][self.turtle[1]] = chr(129462)
+        self.mint.append(self.miner)
+        self.maxt.append(self.maxer)
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
                 print(self.map[i][j], end='\t')
             print()
+        for i in range(len(self.mint) - 1):
+            print(self.mint[len(self.mint) - 1 - i], end="->")
+        print(self.mint[0])
+        for i in range(len(self.maxt) - 1):
+            print(self.maxt[len(self.maxt) - 1 - i], end="->")
+        print(self.maxt[0])
