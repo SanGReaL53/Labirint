@@ -31,7 +31,7 @@ class LabirintTurtle():
 	    self.load_map(input())
 
     def show_map(self, turtle=None):
-        if turtle != None:
+        if turtle is not None:
             self.map[self.turtle[0]][self.turtle[1]] = chr(128034)
         for i in range(len(self.map)):
             print(*self.map[i])
