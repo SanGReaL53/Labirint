@@ -9,29 +9,25 @@ class LabirintTurtle():
 
     def load_map(self, file):
         try:
-	    f = open(file, 'r')
-	    line = f.readline()
-	    length = len(line) - 1
-            while line.find('*') != -1 or line.find(' ') != - 1:
+            f = open(file, 'r')
+            line = f.readline()
+            length = len(line) - 1
+            while line.find('*') != -1 or line.find(' ') != -1:
                 self.map.append(list(line[:-1]) + (length - len(line[:-1])) * 
                                 [" "])
-	        self.lab.append(list(line[:-1]) + (length - len(line[:-1])) * 
+                self.lab.append(list(line[:-1]) + (length - len(line[:-1])) *
                                 [" "])
-	        line = f.readline()
-
-	    pos_x = int(line)
-	    pos_y = int(f.readline())
-	    self.turtle = [pos_x, pos_y]
-	    a = self.check_map()
-	    if a is False:
-		print('Error')
-		self.load_map(input())
+                line = f.readLine()
+            pos_x = int(line)
+            pos_y = int(f.readLine())
+            self.turtle = [pos_x, pos_y]
+            self.check_map()
         except ValueError:
-	    print('Error')
-	    self.load_map(input())
+            print('Error')
+            self.load_map(input())
 
     def show_map(self, turtle=None):
-        if turtle is not None:
+        if turtle != None:
             self.map[self.turtle[0]][self.turtle[1]] = chr(128034)
         for i in range(len(self.map)):
             print(*self.map[i])
@@ -62,19 +58,19 @@ class LabirintTurtle():
             return False
         if self.map[self.turtle[0]][self.turtle[1]] == '*':
             return False
-
     def find_way(self):
         x = self.turtle[0]
         y = self.turtle[1]
         self.lab[x][y] = 1 
-        for i in range(len(self.lab)):
-            for j in range(len(self.lab[i])):
+        for i in range(0, len(self.lab)):
+            for j in range(0, len(self.lab[i])):
                  if self.lab[i][j] == ' ':
                      self.lab[i][j] = 0
-        for i in range(len(self.lab) - 1):
-            for j in range(len(self.lab[i]) - 1):
-                for x in range(len(self.lab) - 1):
-                    for y in range(len(self.lab[x]) - 1):
+        
+        for i in range(0, len(self.lab) - 1):
+            for j in range(0, len(self.lab[i]) - 1):
+                for x in range(0, len(self.lab) - 1):
+                    for y in range(0, len(self.lab[x]) - 1):
                         if self.lab[x][y] != '*':
                             if self.lab[x - 1][y] != '*' and self.lab[x - 1][y] == 0 and self.lab[x][y] != 0:
                                 self.lab[x - 1][y] = int(self.lab[x][y]) + 1
@@ -84,17 +80,26 @@ class LabirintTurtle():
                                 self.lab[x + 1][y] = int(self.lab[x][y]) + 1
                             if self.lab[x][y - 1] != '*' and self.lab[x][y - 1] == 0 and self.lab[x][y] != 0:
                                 self.lab[x][y - 1] = int(self.lab[x][y]) + 1
-        for i in range(len(self.lab)):
-            for j in range(len(self.lab[i])):
+        for i in range(0, len(self.lab)):
+            for j in range(0, len(self.lab[i])):
                 if self.lab[i][j] == '':
                     self.lab[i][j] = 1
+
+        for i in range(len(self.lab)):
+            print(*self.lab[i], end='\t')
+            print()
+
         
     def exit_count_step(self):
         self.find_way()
+        self.clear = False
         x = self.exitc[0][0]
         y = self.exitc[0][1]
         print(self.lab[x][y] - 1)
-
+        for i in range(len(self.map)):
+            print(*self.map[i])
+        print()
+    
     def exit_show_step(self):
         self.find_way()
         min_n = 0
@@ -112,6 +117,8 @@ class LabirintTurtle():
                 max_n = i
         min_c = self.exitc[min_n]
         max_c = self.exitc[max_n]
+        print(minimal, maximal)
+        print(self.exitc)
         self.map[min_c[0]][min_c[1]] = chr(129462)
         self.map[max_c[0]][max_c[1]] = chr(129462)
         if min_c[0] == 0:
@@ -168,9 +175,8 @@ class LabirintTurtle():
                 elif self.lab[max_c[0]][max_c[1] - 1] == maximal - 1:
                     maximal -= 1
                     max_c[1] -= 1
-	self.map[self.turtle[0]][self.turtle[1]] = chr(129462)
+        self.lab[self.turtle[0]][self.turtle[1]] = chr(129462)
         for i in range(len(self.map)):
             for j in range(len(self.map[i])):
                 print(self.map[i][j], end='\t')
             print()
-
